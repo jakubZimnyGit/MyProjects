@@ -92,12 +92,24 @@ namespace Notebook
 
         private void deleteBtn_Click(object sender, EventArgs e)
         {
-            if (CurrentClass != null && previosNotes.CurrentCell != null)
+            if (CurrentClass != null && previosNotes.CurrentCell != null && tbTitle.Text != null)
             {
                 CurrentClass.Rows[previosNotes.CurrentCell.RowIndex].Delete();
-                tbNote.Text = "";
-                tbTitle.Text = "";
+                
+                FileInfo noteToDelete;               
+                try
+                {
+                    noteToDelete = new FileInfo($".//Notes//{loadFromDirectory.Text}//{tbTitle.Text}.txt");
+                    noteToDelete.Delete();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+               tbNote.Text = "";
+               tbTitle.Text = "";
             }
+            editing = false;
         }
 
         private void AddNewClassBtn(object sender, EventArgs e)
@@ -164,22 +176,24 @@ namespace Notebook
             DirectoryInfo di = new DirectoryInfo(".//Notes");
             DirectoryInfo[] przedmioty = di.GetDirectories();
             int i = 0;
+            StreamReader sr;
             foreach (DirectoryInfo przedmiot in przedmioty)
             {       
                 FileInfo[] notes = przedmiot.GetFiles();
                 foreach(FileInfo note in notes)
-                {
-                                      
-                    StreamReader sr = new StreamReader(note.FullName);
+                {                 
+                    sr = new StreamReader(note.FullName);
                     string title = note.Name;
                     string tekst = sr.ReadToEnd();
                     classes[i].Rows.Add(title,tekst);
-                    i++;
+                    sr.Close();
                 }
                 
-
+                i++;
             }
+            
         }
-        
+
+       
     }
 }

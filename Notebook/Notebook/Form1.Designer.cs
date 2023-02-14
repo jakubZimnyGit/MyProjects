@@ -82,6 +82,7 @@
             this.previosNotes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.previosNotes.Size = new System.Drawing.Size(240, 270);
             this.previosNotes.TabIndex = 5;
+            
             this.previosNotes.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.previosNotes_CellContentDoubleClick);
             // 
             // saveToDirectory
