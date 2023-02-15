@@ -82,7 +82,6 @@
             this.previosNotes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.previosNotes.Size = new System.Drawing.Size(240, 270);
             this.previosNotes.TabIndex = 5;
-            
             this.previosNotes.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.previosNotes_CellContentDoubleClick);
             // 
             // saveToDirectory
@@ -158,7 +157,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(160, 39);
             this.button1.TabIndex = 13;
-            this.button1.Text = "Add new class";
+            this.button1.Text = "Add new topic";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.AddNewClassBtn);
             // 

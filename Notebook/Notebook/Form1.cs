@@ -18,8 +18,8 @@ namespace Notebook
         DataTable CurrentClass = null;
         int SelectedClassToSaveTo;
         int SelectedClassToLoadFrom;
-        static List<DataTable> classes = new List<DataTable>();
-        public List<string> classNames = new List<string>();
+        static List<DataTable> Topics = new List<DataTable>();
+        public List<string> topicsToChooseFrom = new List<string>();
         private bool editing;
         public Notebook()
         {
@@ -41,13 +41,11 @@ namespace Notebook
             }
             catch (Exception)
             {
-
                 throw;
             }
-            string[] files = new string[(di.GetDirectories().Length)];
-            files = converToStringArray(di.GetDirectories());
-            classNames = files.ToList();
-            classes = LoadDataTables(files);
+            string[] files = converToStringArray(di.GetDirectories());
+            topicsToChooseFrom = files.ToList();
+            Topics = LoadDataTables(files);
             saveToDirectory.Items.AddRange(files);
             loadFromDirectory.Items.AddRange(files);
             loadNotes();
@@ -58,17 +56,17 @@ namespace Notebook
             string[] strings = new string[directoryInfos.Length];
             for(int i = 0; i < directoryInfos.Length; i++)
             {
-                strings[i] = directoryInfos[i].Name.ToString();
+                strings[i] = directoryInfos[i].Name;
             }
             return strings;
         }
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            SelectedClassToSaveTo = classNames.IndexOf(saveToDirectory.Text);
-            if (classes.Count != 0 && saveToDirectory.Text != string.Empty) 
+            SelectedClassToSaveTo = topicsToChooseFrom.IndexOf(saveToDirectory.Text);
+            if (Topics.Count != 0 && saveToDirectory.Text != string.Empty) 
             {
-                CurrentClass = classes[SelectedClassToSaveTo];
+                CurrentClass = Topics[SelectedClassToSaveTo];
                 if (CurrentClass != null && !editing)
                 {
                     CurrentClass.Rows.Add(tbTitle.Text, tbNote.Text);
@@ -120,9 +118,9 @@ namespace Notebook
                 {
                     saveToDirectory.Items.Add(form2.GivenClassName);
                     loadFromDirectory.Items.Add(form2.GivenClassName);
-                    classNames.Add(form2.GivenClassName);
-                    DataTable newClass = NowyPrzedmiot();
-                    classes.Add(newClass);
+                    topicsToChooseFrom.Add(form2.GivenClassName);
+                    DataTable newClass = NewTopic();
+                    Topics.Add(newClass);
                     DirectoryInfo di = new DirectoryInfo($".//Notes//{form2.GivenClassName}");
                     if (!di.Exists)
                     {
@@ -132,18 +130,18 @@ namespace Notebook
             }
             
         }
-        private static DataTable NowyPrzedmiot()
+        private static DataTable NewTopic()
         {
-            DataTable przedmiot = new DataTable();
-            przedmiot.Columns.Add("Title");
-            przedmiot.Columns.Add("Note");
-            return przedmiot;
+            DataTable subject = new DataTable();
+            subject.Columns.Add("Title");
+            subject.Columns.Add("Note");
+            return subject;
         }
 
         private void loadFromDirectory_SelectedIndexChanged(object sender, EventArgs e)
         {
-            SelectedClassToLoadFrom = classNames.IndexOf(loadFromDirectory.Text);
-            previosNotes.DataSource = classes[SelectedClassToLoadFrom];
+            SelectedClassToLoadFrom = topicsToChooseFrom.IndexOf(loadFromDirectory.Text);
+            previosNotes.DataSource = Topics[SelectedClassToLoadFrom];
         }
 
         private void NewNoteBtn_Click(object sender, EventArgs e)
@@ -155,8 +153,8 @@ namespace Notebook
 
         private void previosNotes_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            SelectedClassToLoadFrom = classNames.IndexOf(loadFromDirectory.Text);
-            CurrentClass = classes[SelectedClassToLoadFrom];
+            SelectedClassToLoadFrom = topicsToChooseFrom.IndexOf(loadFromDirectory.Text);
+            CurrentClass = Topics[SelectedClassToLoadFrom];
             tbTitle.Text = CurrentClass.Rows[previosNotes.CurrentCell.RowIndex].ItemArray[0].ToString();
             tbNote.Text = CurrentClass.Rows[previosNotes.CurrentCell.RowIndex].ItemArray[1].ToString();
             editing = true;
@@ -166,26 +164,26 @@ namespace Notebook
             List<DataTable> dataTable = new List<DataTable>();
             for (int i = 0; i < files.Length; i++)
             {
-                DataTable przedmiot = NowyPrzedmiot();
-                dataTable.Add(przedmiot);
+                DataTable topic = NewTopic();
+                dataTable.Add(topic);
             }
             return dataTable;
         }
         private void loadNotes()
         {
             DirectoryInfo di = new DirectoryInfo(".//Notes");
-            DirectoryInfo[] przedmioty = di.GetDirectories();
+            DirectoryInfo[] topics = di.GetDirectories();
             int i = 0;
             StreamReader sr;
-            foreach (DirectoryInfo przedmiot in przedmioty)
+            foreach (DirectoryInfo topic in topics)
             {       
-                FileInfo[] notes = przedmiot.GetFiles();
+                FileInfo[] notes = topic.GetFiles();
                 foreach(FileInfo note in notes)
                 {                 
                     sr = new StreamReader(note.FullName);
                     string title = note.Name;
-                    string tekst = sr.ReadToEnd();
-                    classes[i].Rows.Add(title,tekst);
+                    string text = sr.ReadToEnd();
+                    Topics[i].Rows.Add(title,text);
                     sr.Close();
                 }
                 
