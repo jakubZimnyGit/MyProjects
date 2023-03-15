@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Configuration;
+using System.Windows.Forms;
 
 namespace Notebook_v2
 {
@@ -12,6 +13,10 @@ namespace Notebook_v2
         public static string CnnVal(string name)
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+        }
+        public static int GetNoteIndex(ListBox listBox)
+        {
+            return listBox.SelectedIndex;
         }
     }
 }
