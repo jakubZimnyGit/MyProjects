@@ -39,7 +39,7 @@ namespace Notebook_v2
                 connection.Execute("dbo.Note_Insert @id, @Title, @Contents", notes);
             }
         }
-        public int GetNoteToDelete(ListBox listBox)
+        public int GetNoteId(ListBox listBox)
         {        
                 int noteToDelelteIndex = listBox.SelectedIndex;
                 return noteToDelelteIndex;    
@@ -51,6 +51,15 @@ namespace Notebook_v2
                 List<Note> notes = new List<Note>();
                 notes.Add(noteToDelete);
                 connection.Execute("dbo.Note_Delete @id", notes);
+            }
+        }
+        public void EditNote(Note note, string Title, string Contents)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("NoteDB")))
+            {
+                List<Note> notes = new List<Note>();
+                notes.Add(new Note { id = note.id, Title = Title, Contents = Contents });
+                connection.Execute("dbo.Note_Edit @id, @Title, @Contents", notes);
             }
         }
     }
