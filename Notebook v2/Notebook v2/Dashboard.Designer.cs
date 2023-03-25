@@ -35,6 +35,8 @@
             this.saveNoteBtn = new System.Windows.Forms.Button();
             this.delNoteBtn = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.labelTitle = new System.Windows.Forms.Label();
+            this.labelContent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbContent
@@ -92,6 +94,7 @@
             this.delNoteBtn.TabIndex = 6;
             this.delNoteBtn.Text = "Delete note";
             this.delNoteBtn.UseVisualStyleBackColor = true;
+            this.delNoteBtn.Click += new System.EventHandler(this.delNoteBtn_Click);
             // 
             // button4
             // 
@@ -102,11 +105,33 @@
             this.button4.Text = "Refresh";
             this.button4.UseVisualStyleBackColor = true;
             // 
+            // labelTitle
+            // 
+            this.labelTitle.AutoSize = true;
+            this.labelTitle.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(339, 13);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(53, 25);
+            this.labelTitle.TabIndex = 8;
+            this.labelTitle.Text = "Title";
+            // 
+            // labelContent
+            // 
+            this.labelContent.AutoSize = true;
+            this.labelContent.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelContent.Location = new System.Drawing.Point(339, 76);
+            this.labelContent.Name = "labelContent";
+            this.labelContent.Size = new System.Drawing.Size(84, 25);
+            this.labelContent.TabIndex = 9;
+            this.labelContent.Text = "Content";
+            // 
             // Dashboard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(730, 668);
+            this.Controls.Add(this.labelContent);
+            this.Controls.Add(this.labelTitle);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.delNoteBtn);
             this.Controls.Add(this.saveNoteBtn);
@@ -130,6 +155,8 @@
         private System.Windows.Forms.Button saveNoteBtn;
         private System.Windows.Forms.Button delNoteBtn;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label labelTitle;
+        private System.Windows.Forms.Label labelContent;
     }
 }
 

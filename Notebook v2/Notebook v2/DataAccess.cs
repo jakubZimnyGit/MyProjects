@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -24,11 +25,32 @@ namespace Notebook_v2
 
         public void saveNote(string Title, string Contents)
         {
+            List<Note> Notes = GetNotes();
+            int id = 1;
+            if (Notes.Count != 0)
+            {
+                id = Notes[Notes.Count - 1].id + 1;
+            }
+            
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("NoteDB")))
             {
                 List<Note> notes = new List<Note>();
-                notes.Add( new Note { id = GetNotes().Count + 1,Title = Title, Contents = Contents });
+                notes.Add( new Note { id = id,Title = Title, Contents = Contents });
                 connection.Execute("dbo.Note_Insert @id, @Title, @Contents", notes);
+            }
+        }
+        public int GetNoteToDelete(ListBox listBox)
+        {        
+                int noteToDelelteIndex = listBox.SelectedIndex;
+                return noteToDelelteIndex;    
+        }
+        public void DeleteNote(Note noteToDelete)
+        {
+            using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("NoteDB")))
+            {
+                List<Note> notes = new List<Note>();
+                notes.Add(noteToDelete);
+                connection.Execute("dbo.Note_Delete @id", notes);
             }
         }
     }

@@ -27,22 +27,23 @@ namespace Notebook_v2
         private void notesListBox_DoubleClick(object sender, EventArgs e)
         {
             tbTitle.Text = notes[Helper.GetNoteIndex(notesListBox)].Title;
-            tbContent.Text = notes[Helper.GetNoteIndex(notesListBox)].Contents;  
+            tbContent.Text = notes[Helper.GetNoteIndex(notesListBox)].Contents;         
         }
-
+        private void ClearText()
+        {
+            tbContent.Text = string.Empty;
+            tbTitle.Text = string.Empty;
+        }
         private void newNoteBtn_Click(object sender, EventArgs e)
         {
-            tbContent.Text = string.Empty; 
-            tbTitle.Text = string.Empty;
+            ClearText();
         }
 
         private void saveNoteBtn_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
-
             db.saveNote(tbTitle.Text, tbContent.Text);
-            tbContent.Text = string.Empty;
-            tbTitle.Text = string.Empty;
+            ClearText();
             updateBinding();
         }
         private void updateBinding()
@@ -51,6 +52,16 @@ namespace Notebook_v2
             notes = db.GetNotes();
             notesListBox.DataSource = notes;
             notesListBox.DisplayMember = "Title";
+        }
+
+        private void delNoteBtn_Click(object sender, EventArgs e)
+        {
+            DataAccess db = new DataAccess();
+            int noteToDeleteIndex = db.GetNoteToDelete(notesListBox);
+            Note noteToDelete = notes[noteToDeleteIndex];
+            db.DeleteNote(noteToDelete);
+            updateBinding();
+            ClearText();
         }
     }
 }
