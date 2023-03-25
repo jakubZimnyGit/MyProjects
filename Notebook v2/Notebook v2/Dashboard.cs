@@ -17,7 +17,8 @@ namespace Notebook_v2
         public Dashboard()
         {
             InitializeComponent();    
-            updateBinding();         
+            updateBinding();
+            saveNoteBtn.Enabled = false;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -85,6 +86,18 @@ namespace Notebook_v2
             int noteToEditIndex = db.GetNoteId(notesListBox);
             Note noteToEdit = notes[noteToEditIndex];
             db.EditNote(noteToEdit, newTitle, newContents);
+        }
+
+        private void tbTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (tbTitle.Text == string.Empty) 
+            {
+                saveNoteBtn.Enabled = false;
+            }
+            else
+            {
+                saveNoteBtn.Enabled = true;
+            }
         }
     }
 }

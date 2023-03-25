@@ -34,13 +34,13 @@
             this.newNoteBtn = new System.Windows.Forms.Button();
             this.saveNoteBtn = new System.Windows.Forms.Button();
             this.delNoteBtn = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelContent = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // tbContent
             // 
+            this.tbContent.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbContent.Location = new System.Drawing.Point(344, 104);
             this.tbContent.Multiline = true;
             this.tbContent.Name = "tbContent";
@@ -54,20 +54,22 @@
             this.tbTitle.Name = "tbTitle";
             this.tbTitle.Size = new System.Drawing.Size(352, 20);
             this.tbTitle.TabIndex = 2;
+            this.tbTitle.TextChanged += new System.EventHandler(this.tbTitle_TextChanged);
             // 
             // notesListBox
             // 
-            this.notesListBox.Font = new System.Drawing.Font("Calibri", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.notesListBox.Font = new System.Drawing.Font("Rockwell", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.notesListBox.FormattingEnabled = true;
-            this.notesListBox.ItemHeight = 33;
-            this.notesListBox.Location = new System.Drawing.Point(12, 41);
+            this.notesListBox.ItemHeight = 34;
+            this.notesListBox.Location = new System.Drawing.Point(38, 41);
             this.notesListBox.Name = "notesListBox";
-            this.notesListBox.Size = new System.Drawing.Size(300, 334);
+            this.notesListBox.Size = new System.Drawing.Size(247, 310);
             this.notesListBox.TabIndex = 3;
             this.notesListBox.DoubleClick += new System.EventHandler(this.notesListBox_DoubleClick);
             // 
             // newNoteBtn
             // 
+            this.newNoteBtn.Font = new System.Drawing.Font("Rockwell", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.newNoteBtn.Location = new System.Drawing.Point(12, 425);
             this.newNoteBtn.Name = "newNoteBtn";
             this.newNoteBtn.Size = new System.Drawing.Size(137, 76);
@@ -78,6 +80,7 @@
             // 
             // saveNoteBtn
             // 
+            this.saveNoteBtn.Font = new System.Drawing.Font("Rockwell", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.saveNoteBtn.Location = new System.Drawing.Point(174, 425);
             this.saveNoteBtn.Name = "saveNoteBtn";
             this.saveNoteBtn.Size = new System.Drawing.Size(137, 76);
@@ -88,40 +91,33 @@
             // 
             // delNoteBtn
             // 
-            this.delNoteBtn.Location = new System.Drawing.Point(12, 525);
+            this.delNoteBtn.BackColor = System.Drawing.SystemColors.Control;
+            this.delNoteBtn.Font = new System.Drawing.Font("Rockwell", 8.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.delNoteBtn.Location = new System.Drawing.Point(12, 514);
             this.delNoteBtn.Name = "delNoteBtn";
-            this.delNoteBtn.Size = new System.Drawing.Size(137, 76);
+            this.delNoteBtn.Size = new System.Drawing.Size(299, 76);
             this.delNoteBtn.TabIndex = 6;
             this.delNoteBtn.Text = "Delete note";
-            this.delNoteBtn.UseVisualStyleBackColor = true;
+            this.delNoteBtn.UseVisualStyleBackColor = false;
             this.delNoteBtn.Click += new System.EventHandler(this.delNoteBtn_Click);
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(174, 525);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(137, 76);
-            this.button4.TabIndex = 7;
-            this.button4.Text = "Refresh";
-            this.button4.UseVisualStyleBackColor = true;
             // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
-            this.labelTitle.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelTitle.Location = new System.Drawing.Point(339, 13);
             this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(53, 25);
+            this.labelTitle.Size = new System.Drawing.Size(50, 21);
             this.labelTitle.TabIndex = 8;
             this.labelTitle.Text = "Title";
             // 
             // labelContent
             // 
             this.labelContent.AutoSize = true;
-            this.labelContent.Font = new System.Drawing.Font("MV Boli", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelContent.Font = new System.Drawing.Font("Rockwell", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelContent.Location = new System.Drawing.Point(339, 76);
             this.labelContent.Name = "labelContent";
-            this.labelContent.Size = new System.Drawing.Size(84, 25);
+            this.labelContent.Size = new System.Drawing.Size(80, 21);
             this.labelContent.TabIndex = 9;
             this.labelContent.Text = "Content";
             // 
@@ -129,10 +125,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(730, 668);
             this.Controls.Add(this.labelContent);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.delNoteBtn);
             this.Controls.Add(this.saveNoteBtn);
             this.Controls.Add(this.newNoteBtn);
@@ -154,7 +150,6 @@
         private System.Windows.Forms.Button newNoteBtn;
         private System.Windows.Forms.Button saveNoteBtn;
         private System.Windows.Forms.Button delNoteBtn;
-        private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelContent;
     }
