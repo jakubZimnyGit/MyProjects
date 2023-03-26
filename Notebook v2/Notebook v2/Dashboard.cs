@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace Notebook_v2
 {
     public partial class Dashboard : Form
@@ -18,18 +19,12 @@ namespace Notebook_v2
         {
             InitializeComponent();    
             updateBinding();
-            saveNoteBtn.Enabled = false;
+            saveNoteBtn.Enabled = false;        
         }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void notesListBox_DoubleClick(object sender, EventArgs e)
         {
-            tbTitle.Text = notes[Helper.GetNoteIndex(notesListBox)].Title;
-            tbContent.Text = notes[Helper.GetNoteIndex(notesListBox)].Contents;
+            tbTitle.Text = notes[notesListBox.SelectedIndex].Title;
+            tbContent.Text = notes[notesListBox.SelectedIndex].Contents;
             editing= true;
         }
         private void ClearText()
@@ -59,9 +54,18 @@ namespace Notebook_v2
             DataAccess db = new DataAccess();
             notes = db.GetNotes();
             notesListBox.DataSource = notes;
-            notesListBox.DisplayMember = "Title";
+            notesListBox.DisplayMember = "NoteInfo";
+            delBtnSettings();
         }
-
+        private void delBtnSettings()
+        {
+            if (notes.Count == 0)
+            {
+                delNoteBtn.Enabled = false;
+                return;
+            }
+            delNoteBtn.Enabled = true;
+        }
         private void delNoteBtn_Click(object sender, EventArgs e)
         {
             DataAccess db = new DataAccess();
@@ -86,6 +90,8 @@ namespace Notebook_v2
             int noteToEditIndex = db.GetNoteId(notesListBox);
             Note noteToEdit = notes[noteToEditIndex];
             db.EditNote(noteToEdit, newTitle, newContents);
+            updateBinding();
+            ClearText();
         }
 
         private void tbTitle_TextChanged(object sender, EventArgs e)

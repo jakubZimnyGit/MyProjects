@@ -14,9 +14,5 @@ namespace Notebook_v2
         {
             return ConfigurationManager.ConnectionStrings[name].ConnectionString;
         }
-        public static int GetNoteIndex(ListBox listBox)
-        {
-            return listBox.SelectedIndex;
-        }
     }
 }

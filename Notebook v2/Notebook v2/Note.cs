@@ -11,5 +11,14 @@ namespace Notebook_v2
         public int id { get; set; }
         public string Title { get; set; }
         public string Contents { get; set; }
+        public DateTime Created { get; set; }
+        
+        public string NoteInfo
+        {
+            get
+            {
+                return ($"{Title}      {Created.Day}/{Created.Month}/{Created.Year}");
+            }
+        }
     }
 }

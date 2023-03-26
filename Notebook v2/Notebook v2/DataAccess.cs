@@ -17,7 +17,7 @@ namespace Notebook_v2
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("NoteDB")))
             {
-                var output =  connection.Query<Note>("dbo.Note_GetAll").ToList();
+                var output = connection.Query<Note>("dbo.Note_GetAll").ToList();
                 return output;
    
             }
@@ -25,18 +25,13 @@ namespace Notebook_v2
 
         public void saveNote(string Title, string Contents)
         {
-            List<Note> Notes = GetNotes();
-            int id = 1;
-            if (Notes.Count != 0)
-            {
-                id = Notes[Notes.Count - 1].id + 1;
-            }
+            int id = setId();
             
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("NoteDB")))
             {
                 List<Note> notes = new List<Note>();
-                notes.Add( new Note { id = id,Title = Title, Contents = Contents });
-                connection.Execute("dbo.Note_Insert @id, @Title, @Contents", notes);
+                notes.Add( new Note { id = id,Title = Title, Contents = Contents, Created = DateTime.Now.Date });
+                connection.Execute("dbo.Note_Insert @id, @Title, @Contents, @Created", notes);
             }
         }
         public int GetNoteId(ListBox listBox)
@@ -61,6 +56,16 @@ namespace Notebook_v2
                 notes.Add(new Note { id = note.id, Title = Title, Contents = Contents });
                 connection.Execute("dbo.Note_Edit @id, @Title, @Contents", notes);
             }
+        }
+        private int setId()
+        {
+            List<Note> Notes = GetNotes();
+            int id = 1;
+            if (Notes.Count != 0)
+            {
+                id = Notes[Notes.Count - 1].id + 1;
+            }
+            return id;
         }
     }
 }
