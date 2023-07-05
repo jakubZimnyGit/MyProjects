@@ -1,0 +1,23 @@
+﻿@page
+@using System.Data;
+@using System.Data.SqlClient;
+@using Dapper
+@{
+    try
+    {
+        string id = Request.Query["Id"];           // Żądanie id odpowiadającego obiektowi który chcemy usunąć przypisuje do zmiennej "id"
+        string command = "dbo.spDeleteContact @id = " + id; // za pomocą procedury z bazy danych tworze komendę jako zmienną, a poniżej ją wykonuję
+
+        string connectionString = "Data Source=DESKTOP-25Q87GI;Initial Catalog=ContactsDB;Integrated Security=True";
+
+        using (IDbConnection connection = new SqlConnection(connectionString))
+        {
+            connection.Execute(command);
+        }
+    }
+    catch (Exception)
+    {
+        throw;
+    }
+    Response.Redirect("/Contacts"); // Przekierowuję do strony z kontaktami
+}
