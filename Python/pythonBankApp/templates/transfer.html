@@ -1,0 +1,21 @@
+{% extends "base.html" %} {% block title %}User Page{% endblock%} {% block
+    content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    msg in messages %}
+    <p>{{msg}}</p>
+    {% endfor %} {% endif %} {% endwith %}
+    <form action="#" , method="POST">
+        <input
+          type="text"
+          name="accountNumber"
+          placeholder="Enter account number"
+          value="{{accountNumber}}"
+        />
+        <input
+          type="number"
+          name="money"
+          placeholder="Enter amount of many that you want to transfer"
+          value="{{money}}"
+        />
+        <input type="submit" value="submit" />
+      </form>
+      {% endblock %}
