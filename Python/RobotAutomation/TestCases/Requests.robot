@@ -3,8 +3,9 @@ Library    RequestsLibrary
 
 *** Variables ***
 ${base_url}     https://api.openweathermap.org/
+${base_url_Post}    http://127.0.0.1:5000/
 ${city}     London
-${KEY}  <API_KEY>
+${KEY}  {API_KEY}
 
 *** Test Cases ***
 Get_weatherInfo
@@ -16,4 +17,12 @@ Get_weatherInfo
     ${body}=    convert to string   ${response.content}
     Should contain    ${body}   pressure
 
+Register an account (POST)
+    Create Session    mySession    ${base_url_Post}
+    ${body}=    Create dictionary   name=jakub  email=jakub@gmail.com   password=jakub26
+    ${header}=  Create dictionary    Content-Type=application/json
+    ${response}=    POST On Session    mySession    /Register    data=${body}    headers=${header}
+
+    Log to console    ${response.status_code}
+    Log to console    ${response.content}
 
